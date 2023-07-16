@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@tsconfig/strictest": "^2.0.1",
+    "microbundle": "^0.15.1",
     "typescript": "^5.1.6"
   },
   "private": true
