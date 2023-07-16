@@ -27,6 +27,12 @@
   },
   "scripts": {
     "build": "microbundle",
+    "fix": "run-p -l fix:*",
+    "fix:fixpack": "npx fixpack",
+    "fix:prettier": "prettier --write .",
+    "lint": "run-p -l lint:*",
+    "lint:fixpack": "npx fixpack --dryRun",
+    "lint:prettier": "prettier --check .",
     "preserve": "npm run build && cp ./dist/index.umd.js ./dist/index.umd.js.map ./docs",
     "serve": "http-server ./docs -c-1 -p 8080",
     "watch": "microbundle watch"
