@@ -1,8 +1,33 @@
 {
+  "name": "dom-tree-renderer",
+  "description": "renderer for DOM trees",
+  "version": "0.1.0",
+  "author": "sasa+1 <sasaplus1@gmail.com>",
   "devDependencies": {
     "@tsconfig/strictest": "^2.0.1",
     "microbundle": "^0.15.1",
     "typescript": "^5.1.6"
   },
-  "private": true
+  "exports": {
+    "import": "./dist/index.modern.mjs",
+    "require": "./dist/index.cjs",
+    "types": "./dist/index.d.ts"
+  },
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.mjs",
+  "private": true,
+  "readmeFilename": "./README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sasaplus1/dom-tree-renderer.js.git"
+  },
+  "scripts": {
+    "build": "microbundle",
+    "watch": "microbundle watch"
+  },
+  "sideEffects": false,
+  "source": "./index.ts",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/index.umd.js"
 }
