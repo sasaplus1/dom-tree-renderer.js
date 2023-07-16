@@ -19,6 +19,18 @@
   "license": "MIT",
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.mjs",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "none",
+    "overrides": [
+      {
+        "files": "*.json",
+        "options": {
+          "parser": "json-stringify"
+        }
+      }
+    ]
+  },
   "private": true,
   "readmeFilename": "./README.md",
   "repository": {
