@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
