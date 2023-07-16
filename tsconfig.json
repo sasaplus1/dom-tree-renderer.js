@@ -1,9 +1,13 @@
 {
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": ".tsconfigs/lint.json"
-    }
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "target": "ESNext"
+  },
+  "include": [
+    "./index.ts",
+    "./src/**/*.ts"
   ]
 }
