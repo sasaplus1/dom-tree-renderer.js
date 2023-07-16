@@ -5,6 +5,7 @@
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "devDependencies": {
     "@tsconfig/strictest": "^2.0.1",
+    "http-server": "^14.1.1",
     "microbundle": "^0.15.1",
     "typescript": "^5.1.6"
   },
@@ -24,6 +25,8 @@
   },
   "scripts": {
     "build": "microbundle",
+    "preserve": "npm run build && cp ./dist/index.umd.js ./dist/index.umd.js.map ./docs",
+    "serve": "http-server ./docs -c-1 -p 8080",
     "watch": "microbundle watch"
   },
   "sideEffects": false,
