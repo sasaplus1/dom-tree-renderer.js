@@ -27,8 +27,11 @@ type CarryOverParams = {
  * @returns rendered node text
  */
 export function defaultRenderNode(node: Node): string {
-  return (node.nodeType === Node.TEXT_NODE)
-    ? (node.textContent || '').replace(escapeControlCharacterRegex, escapeControlCharacter)
+  return node.nodeType === Node.TEXT_NODE
+    ? (node.textContent || '').replace(
+        escapeControlCharacterRegex,
+        escapeControlCharacter
+      )
     : node.nodeName.toLowerCase();
 }
 
@@ -37,7 +40,7 @@ export const asciiShapes = {
   Empty: '   ',
   I: '|  ',
   L: '|- ',
-  T: '|- ',
+  T: '|- '
 } as const satisfies TreeShape;
 
 /** shape texts by Unicode */
@@ -45,7 +48,7 @@ export const unicodeShapes = {
   Empty: '   ',
   I: '│  ',
   L: '└─ ',
-  T: '├─ ',
+  T: '├─ '
 } as const satisfies TreeShape;
 
 /** textTree() default options */
@@ -80,20 +83,20 @@ export const defaultOptions: Options = {
  * }).join('<br>');
  * ```
  */
-export function textTree(node: Node, options: Options = {
-  ...defaultOptions
-}, carryOverParams: CarryOverParams = {
-  depth: 0,
-  isLastSibling: false,
-  prefix: ''
-}, result: string[] = []): string[] {
+export function textTree(
+  node: Node,
+  options: Options = {
+    ...defaultOptions
+  },
+  carryOverParams: CarryOverParams = {
+    depth: 0,
+    isLastSibling: false,
+    prefix: ''
+  },
+  result: string[] = []
+): string[] {
   const { renderNode, shapes } = options;
-  const {
-    Empty: emptyShape,
-    I: iShape,
-    L: lShape,
-    T: tShape
-  } = shapes;
+  const { Empty: emptyShape, I: iShape, L: lShape, T: tShape } = shapes;
 
   const { depth, isLastSibling, prefix } = carryOverParams;
 
@@ -111,11 +114,16 @@ export function textTree(node: Node, options: Options = {
 
     const childTreeText = isRoot ? '' : isLastSibling ? emptyShape : iShape;
 
-    textTree(childNode, options, {
-      depth: depth + 1,
-      isLastSibling: i === len - 1,
-      prefix: prefix + childTreeText,
-    }, result);
+    textTree(
+      childNode,
+      options,
+      {
+        depth: depth + 1,
+        isLastSibling: i === len - 1,
+        prefix: prefix + childTreeText
+      },
+      result
+    );
   }
 
   return result;
