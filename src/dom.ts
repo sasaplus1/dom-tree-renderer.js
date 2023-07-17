@@ -1,3 +1,5 @@
+import { escapeControlCharacterRegex, escapeControlCharacter } from './utility';
+
 export type CarryOverParams = {
   depth: number;
   isLastSibling: boolean;
@@ -14,6 +16,20 @@ export type DomTreeOptions = {
 };
 
 export const createDetailsTreeNode: CreateTreeNode = (node) => {
+  if (node.nodeType === Node.TEXT_NODE) {
+    const str = (node.textContent || '').replace(
+      escapeControlCharacterRegex,
+      escapeControlCharacter
+    );
+
+    const text = document.createTextNode(str);
+    const span = document.createElement('span');
+
+    span.appendChild(text);
+
+    return span;
+  }
+
   const details = document.createElement('details');
   const summary = document.createElement('summary');
 
@@ -23,21 +39,26 @@ export const createDetailsTreeNode: CreateTreeNode = (node) => {
   return details;
 };
 
-export const createListTreeNode: CreateTreeNode = (node): Node => {
-  const ul = document.createElement('ul');
-  const li = document.createElement('li');
+export function createListTreeNodeClosure(): CreateTreeNode {
+  // let previousDepth = NaN;
 
-  li.textContent = node.nodeName;
-  ul.appendChild(li);
+  return function createListTreeNode(node, _parent, _params) {
+    // const { depth } = params;
 
-  return ul;
-};
+    const ul = document.createElement('ul');
+    const li = document.createElement('li');
+
+    li.textContent = node.nodeName;
+    ul.appendChild(li);
+
+    return ul;
+  };
+}
 
 export function domTree(
   node: Node,
   options: DomTreeOptions = {
-    // createTreeNode: createListTreeNode
-    createTreeNode: createDetailsTreeNode
+    createTreeNode: createListTreeNodeClosure()
   },
   carryOverParams: CarryOverParams = {
     depth: 0,
