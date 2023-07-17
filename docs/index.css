@@ -22,3 +22,7 @@ pre {
   overflow: scroll;
   width: 100%;
 }
+
+details > details {
+  margin-left: 16px;
+}

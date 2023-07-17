@@ -8,9 +8,11 @@ export type TreeShape = {
   T: string;
 };
 
+export type RenderNode = (node: Node) => string;
+
 /** treeText() options */
-export type Options = {
-  renderNode: (node: Node) => string;
+export type TextTreeOptions = {
+  renderNode: RenderNode;
   shapes: TreeShape;
 };
 
@@ -26,14 +28,14 @@ type CarryOverParams = {
  * @param node - DOM node
  * @returns rendered node text
  */
-export function defaultRenderNode(node: Node): string {
+export const defaultRenderNode: RenderNode = (node) => {
   return node.nodeType === Node.TEXT_NODE
     ? (node.textContent || '').replace(
         escapeControlCharacterRegex,
         escapeControlCharacter
       )
     : node.nodeName.toLowerCase();
-}
+};
 
 /** shape texts by ASCII */
 export const asciiShapes = {
@@ -52,7 +54,7 @@ export const unicodeShapes = {
 } as const satisfies TreeShape;
 
 /** textTree() default options */
-export const defaultOptions: Options = {
+export const defaultOptions: TextTreeOptions = {
   renderNode: defaultRenderNode,
   shapes: { ...asciiShapes }
 };
@@ -78,14 +80,14 @@ export const defaultOptions: Options = {
  *     Empty: '   ',
  *     I: '|  ',
  *     L: '+─ ',
- *     T: '*- ',
+ *     T: '*- '
  *   }
  * }).join('<br>');
  * ```
  */
 export function textTree(
   node: Node,
-  options: Options = {
+  options: TextTreeOptions = {
     ...defaultOptions
   },
   carryOverParams: CarryOverParams = {
